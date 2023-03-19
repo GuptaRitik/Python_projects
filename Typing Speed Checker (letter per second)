@@ -1,0 +1,56 @@
+from time import *
+import random as r
+
+# function to count errors in typed and actual paragraph
+def mistake_finder(actual_para, user_para):
+  error = 0
+  for i in range(len(actual_para)): # iterating through each element of a string
+    try:
+      if actual_para[i] != user_para[i]:
+        error += 1
+    #counting errors even if it gives out of index errors for user input
+    except: 
+      error += 1
+  
+  return error
+
+
+# function to calculate Word per Second
+def type_speed(time_s, time_e, user_input):
+  time_delay = time_e - time_s
+  time_rounded = round(time_delay, 2)
+  speed = len(user_input) / time_rounded
+
+  return round(speed)
+
+
+# Program -------------------------------------------------------
+
+while True:
+  check = input('Ready to Test: Type Yes/No: ' ).lower()
+  if check == 'yes': #going further if user types yes
+        # list of test sentences
+        all_para = ['quick brown fox jumps over the lazy dog',
+                    'Typing is the future of talking and to dont forgot and brother of feature.',
+                    'Whenever I look into her eyes, my typewriter starts typing poems for her!',
+                    'The more our fingers are getting skilled on keypad the more we are losing the art of holding the pen.',
+                    ]
+        # selecting a random sentence from list 
+        selected_para = r.choice(all_para)
+        print('***** Typing Speed check -- write below shown text *****\n')
+        print(selected_para,'\n') #printing the selected sentence
+
+        time_1 = time() # calculating before starting time (in seconds)
+        test_input = input("Start Typing: ")
+        time_2 = time() # calculating after typing time (in seconds)
+
+        #printing results
+        print(f'Speed: {type_speed(time_1, time_2, test_input)} letter per Second')
+        print(f'Error: {mistake_finder(selected_para, test_input)}')
+
+  elif check == 'no':
+        print("Thank you, we'll met next time!")
+        break
+
+  else:
+    print('Please Enter Correct Input')      
